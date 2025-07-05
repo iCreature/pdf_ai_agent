@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+loguru
+python-dotenv
+pydantic
+pytest
+pytest-asyncio

@@ -1,0 +1,4 @@
+2025-07-05 20:09:10.814 | INFO     | main:startup_event:36 - Application startup complete.
+2025-07-05 20:10:11.023 | INFO     | agent_controller:process_request:45 - Processing request with prompt_hash: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e
+2025-07-05 20:10:11.025 | INFO     | agent_controller:generate:27 - Generating PDF for prompt: Hello World...
+2025-07-05 20:10:11.417 | INFO     | agent_controller:process_request:55 - Successfully processed request with prompt_hash: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e. Execution time: 0.40s
