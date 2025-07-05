@@ -68,8 +68,13 @@ Once the application is running, you can generate a PDF by sending a GET request
 
 ### Example with `curl`
 
+A robust way to send the request with `curl` is to use the `-G` flag to build the URL from data parameters. This avoids issues with special characters in the shell.
+
 ```bash
-curl -X GET "http://127.0.0.1:8000/render?prompt=This%20is%20a%20test%20of%20the%20PDF%20generation%20service.&title=TestDocument" -o output.pdf
+curl -G 'http://127.0.0.1:8000/render' \
+--data-urlencode 'prompt=This is a test of the PDF generation service.' \
+--data-urlencode 'title=TestDocument' \
+-o output.pdf
 ```
 
 This command will generate a PDF named `TestDocument.pdf` with the content "This is a test of the PDF generation service." and save it as `output.pdf`.
@@ -83,3 +88,49 @@ http://127.0.0.1:8000/render?prompt=This%20is%20a%20test%20of%20the%20PDF%20gene
 ```
 
 This will download a PDF file named `TestDocument.pdf`.
+
+### DocuForge JSON Structure
+
+While this MVP application simplifies the input to a `prompt` and `title`, the underlying `docuforge` library accepts a more complex JSON structure for generating documents. This allows for more control over the document's content and layout.
+
+Here is an example of the JSON structure that `docuforge` can accept:
+
+```json
+{
+  "title": "My Report",
+  "sections": [
+    {
+      "type": "header",
+      "text": "My Report Header"
+    },
+    {
+      "type": "paragraph",
+      "text": "Welcome to DocuForge!"
+    },
+    {
+      "type": "table",
+      "rows": [
+        ["Column 1", "Column 2"],
+        ["A", "B"]
+      ]
+    },
+    {
+      "type": "list",
+      "items": ["First", "Second"]
+    },
+    {
+      "type": "footer",
+      "text": "Page Footer"
+    }
+  ],
+  "images": [
+    {
+      "name": "logo",
+      "data": "<base64-encoded-image-data>",
+      "format": "PNG"
+    }
+  ]
+}
+```
+
+In the current implementation, the `agent_controller.py` takes the `prompt` and `title` and constructs a simplified version of this JSON to pass to `docuforge`.
